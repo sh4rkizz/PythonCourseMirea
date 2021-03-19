@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../scholarship-sport-part/.idea/djangoProject.iml" filepath="$PROJECT_DIR$/../scholarship-sport-part/.idea/djangoProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/py_success.iml" filepath="$PROJECT_DIR$/.idea/py_success.iml" />
+    </modules>
+  </component>
+</project>
