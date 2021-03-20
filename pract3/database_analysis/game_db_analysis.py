@@ -56,7 +56,7 @@ def graph_analysis(main_list, counter_list, settings):
         ax1.pie(counter_list, shadow=True, autopct='%1.1f%%', pctdistance=0.9, radius=1.25, textprops={'fontsize': 18})
         ax1.legend(fontsize=18, bbox_to_anchor=(-0.013, 1.152), labels=main_list)
         ax1.set_title(settings['name'], y=1.05, fontdict={'fontsize': 25})
-        plt.savefig('database_analysis/Popular_game_genres.png', bbox_inches='tight')
+        plt.savefig(settings['save_to'], bbox_inches='tight')
         plt.show()
     else:
         plt.plot(main_list, counter_list, label=settings['legend'])
@@ -65,7 +65,7 @@ def graph_analysis(main_list, counter_list, settings):
         plt.title(settings['name'])
         plt.legend()
         plt.grid()
-        plt.savefig('database_analysis/Popular_game_dev_years.png', dpi=200, bbox_inches='tight')
+        plt.savefig(settings['save_to'], dpi=200, bbox_inches='tight')
         plt.show()
 
 
@@ -76,7 +76,8 @@ if __name__ == '__main__':
                    'legend': 'Games per year',
                    'x_axis': 'Years',
                    'y_axis': 'Games',
-                   'circle_diagram': False}
+                   'circle_diagram': False,
+                   'save_to': 'Popular_game_dev_years.png'}
     popularity = popular_years(database)
     arg_1 = popularity.keys()
     arg_2 = popularity.values()
@@ -86,7 +87,8 @@ if __name__ == '__main__':
                    'legend': None,
                    'x_axis': None,
                    'y_axis': None,
-                   'circle_diagram': True}
+                   'circle_diagram': True,
+                   'save_to': 'Popular_game_genres.png'}
 
     popularity = popular_genres(database)
     arg_1 = popularity.keys()
