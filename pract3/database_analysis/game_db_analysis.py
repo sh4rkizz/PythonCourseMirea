@@ -56,7 +56,7 @@ def graph_analysis(main_list, counter_list, settings):
         ax1.pie(counter_list, shadow=True, autopct='%1.1f%%', pctdistance=0.9, radius=1.25, textprops={'fontsize': 18})
         ax1.legend(fontsize=18, bbox_to_anchor=(-0.013, 1.152), labels=main_list)
         ax1.set_title(settings['name'], y=1.05, fontdict={'fontsize': 25})
-        plt.savefig('database_analysis/Popular_game_genres.png', dpi=200, bbox_inches='tight')
+        plt.savefig('database_analysis/Popular_game_genres.png', bbox_inches='tight')
         plt.show()
     else:
         plt.plot(main_list, counter_list, label=settings['legend'])
