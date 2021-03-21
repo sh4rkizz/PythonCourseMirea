@@ -78,6 +78,7 @@ if __name__ == '__main__':
                    'y_axis': 'Games',
                    'circle_diagram': False,
                    'save_to': 'Popular_game_dev_years.png'}
+
     popularity = popular_years(database)
     arg_1 = popularity.keys()
     arg_2 = popularity.values()
