@@ -143,14 +143,14 @@ def plotting_common_mistakes(report):
     mistakes = {'None': 0,
                 'list index out of range': 0,
                 'is not defined': 0,
-                'Unused bit_operations': len(for_bit),
+                'unused bit operations': len(for_bit),
                 'unsupported operand type': 0,
                 'positional arguments': 0,
                 'no attribute': 0,
                 'wrong answer': 0,
                 'referenced before assignment': 0}
     for a in ans:
-        for mistake in mistakes.keys():
+        for mistake in mistakes:
             if a == 'None':
                 mistakes['None'] += 1
                 break
