@@ -1,6 +1,7 @@
 from lxml.html import document_fromstring
 from requests import get
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def counting_sort(array_to_sort, reverse=False):
@@ -22,6 +23,29 @@ def get_db():
     return document_fromstring(get(url).text).xpath('//*[@class="blob-code blob-code-inner js-file-line"]/text()')
 
 
+def graph_analysis(settings, main_list, counter_list):
+    if settings['bar_diagram']:
+        width = 0.3
+        _, ax = plt.subplots(figsize=(20, 8))
+        x = np.arange(len(main_list))
+        ax.bar(x, counter_list[0], width, label='80s')
+        ax.bar(x + width, counter_list[1], width, label='90s')
+        ax.bar(x + 2 * width, counter_list[2], width, label='00s')
+        plt.xticks(x + 1.5 * width, main_list)
+        plt.legend()
+        plt.savefig(settings['save_to'], bbox_inches='tight')
+        plt.show()
+    else:
+        plt.plot(main_list, counter_list, label=settings['legend'])
+        plt.xlabel(settings['x_axis'], fontsize=13)
+        plt.ylabel(settings['y_axis'], fontsize=13)
+        plt.title(settings['name'])
+        plt.legend()
+        plt.grid()
+        plt.savefig(settings['save_to'], dpi=100, bbox_inches='tight')
+        plt.show()
+
+
 def popular_years(text):
     years = [int(line.split(';')[3][1:-1]) for line in text if line[-10:-1] != 'не издана']
     m = min(years)
@@ -37,61 +61,45 @@ def popular_years(text):
     return out
 
 
-def popular_genres(text):
-    genres = [line.split(';')[1][1:-1] for line in text]
-    pair = dict()
+def popular_genres_throughout_time(text):
+    years = [(int(line.split(';')[3][1:-1]), line.split(';')[1][1:-1])
+             for line in text if line[-10:-1] != 'не издана']
 
-    for i in list(set(genres)):
-        pair.update({i: genres.count(i)})
-    return pair
+    out = set(i for _, i in years)
+    eighties = [j for i, j in years if i < 1990]
+    nineties = [j for i, j in years if 1990 <= i < 2000]
+    zeros = [j for i, j in years if 2000 <= i]
+    out = [(i, (eighties.count(i), nineties.count(i), zeros.count(i))) for i in out]
 
-
-def analyze_db(text):
-    return popular_years(text), popular_genres(text)
-
-
-def graph_analysis(main_list, counter_list, settings):
-    if settings['circle_diagram']:
-        _, ax1 = plt.subplots(1, figsize=(16, 12))
-        ax1.pie(counter_list, shadow=True, autopct='%1.1f%%', pctdistance=0.9, radius=1.25, textprops={'fontsize': 18})
-        ax1.legend(fontsize=18, bbox_to_anchor=(-0.013, 1.152), labels=main_list)
-        ax1.set_title(settings['name'], y=1.05, fontdict={'fontsize': 25})
-        plt.savefig(settings['save_to'], bbox_inches='tight')
-        plt.show()
-    else:
-        plt.plot(main_list, counter_list, label=settings['legend'])
-        plt.xlabel(settings['x_axis'], fontsize=13)
-        plt.ylabel(settings['y_axis'], fontsize=13)
-        plt.title(settings['name'])
-        plt.legend()
-        plt.grid()
-        plt.savefig(settings['save_to'], dpi=200, bbox_inches='tight')
-        plt.show()
+    return out
 
 
-if __name__ == '__main__':
-    database = get_db()
-
+def analyze_db(db):
     gr_settings = {'name': 'Game dev per year graph',
                    'legend': 'Games per year',
                    'x_axis': 'Years',
                    'y_axis': 'Games',
-                   'circle_diagram': False,
+                   'bar_diagram': False,
                    'save_to': 'Popular_game_dev_years.png'}
 
-    popularity = popular_years(database)
-    arg_1 = popularity.keys()
-    arg_2 = popularity.values()
-    graph_analysis(arg_1, arg_2, gr_settings)
+    popularity = popular_years(db)
+    graph_analysis(gr_settings, popularity.keys(), popularity.values())
 
-    gr_settings = {'name': 'The most popular genres',
+    gr_settings = {'name': 'Genres throughout the time',
                    'legend': None,
                    'x_axis': None,
                    'y_axis': None,
-                   'circle_diagram': True,
-                   'save_to': 'Popular_game_genres.png'}
+                   'bar_diagram': True,
+                   'save_to': 'Popular_game_genres_throughout_time.png'}
 
-    popularity = popular_genres(database)
-    arg_1 = popularity.keys()
-    arg_2 = popularity.values()
-    graph_analysis(arg_1, arg_2, gr_settings)
+    popularity = popular_genres_throughout_time(db)
+    names = tuple(i for i, _ in popularity)
+    e = tuple(i[0] for _, i in popularity)
+    n = tuple(i[1] for _, i in popularity)
+    z = tuple(i[2] for _, i in popularity)
+    graph_analysis(gr_settings, names, (e, n, z))
+
+
+if __name__ == '__main__':
+    database = get_db()
+    analyze_db(database)
