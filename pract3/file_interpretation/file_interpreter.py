@@ -63,7 +63,7 @@ def plotting_student_activity_during_a_day(messages):
         'size': [25, 15],
         'y_name': 'Activity, %',
         'x_name': 'Time',
-        'dpi': 200,
+        'dpi': 100,
     }
     plot(hours.keys(), hours.values(), settings)
 
@@ -79,7 +79,7 @@ def plotting_student_activity_during_a_week(messages):
         'size': [25, 15],
         'y_name': 'Activity, %',
         'x_name': 'Days',
-        'dpi': 200,
+        'dpi': 100,
     }
     y = tuple(x for _, x in count)
     s = sum(y)
@@ -94,7 +94,7 @@ def plotting_groups_with_the_most_messages_sent(messages, group_dictionary):
         'size': [45, 10],
         'y_name': 'Messages sent',
         'x_name': 'Group',
-        'dpi': 200,
+        'dpi': 100,
     }
     bar_chart_for_groups(
         [grs.split()[0] for grs, _ in [(m['subj'].upper(), parsedate(m['date'])[1:6]) for m in messages]],
@@ -109,7 +109,7 @@ def plotting_hard_working_groups(inp, group_dictionary):
         'size': [45, 10],
         'y_name': 'Tasks completed',
         'x_name': 'Group',
-        'dpi': 200,
+        'dpi': 100,
     }
     bar_chart_for_groups([grs[0] for grs in inp['data'] if grs[3]], group_dictionary, settings)
 
@@ -129,7 +129,7 @@ def plotting_the_easiest_and_hardest_tasks(inp):
         'size': [25, 15],
         'y_name': 'Complexity, %',
         'x_name': 'Task, №',
-        'dpi': 200,
+        'dpi': 100,
     }
     plot(tuple(i for i, _ in tasks),
          tuple(j for _, j in tasks),
@@ -165,7 +165,7 @@ def plotting_common_mistakes(report):
         'size': [15, 10],
         'y_name': 'Tasks completed',
         'x_name': 'Group',
-        'dpi': 200,
+        'dpi': 100,
     }
     circle_diagram(main_list=mistakes.values(), label_list=mistakes.keys(), graph_settings=settings)
 
