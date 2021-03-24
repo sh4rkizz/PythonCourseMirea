@@ -36,6 +36,7 @@ def graph_analysis(settings, main_list, counter_list):
         plt.savefig(settings['save_to'], bbox_inches='tight')
         plt.show()
     else:
+        plt.figure(figsize=(20, 8))
         plt.plot(main_list, counter_list, label=settings['legend'])
         plt.xlabel(settings['x_axis'], fontsize=13)
         plt.ylabel(settings['y_axis'], fontsize=13)

@@ -83,10 +83,7 @@ def tolerant_town(iterations_left, grid_size=20, c=None):
             plt.show()
         else:
             iters.append(a)
-            print(f'iterations_left = {iterations_left - a}')
-            n = is_happy(happy_town=c, dist=2, prc=55, size=grid_size)
-            toler.append(n)
-            print(f'\ttolerance = {n}')
+            toler.append(is_happy(happy_town=c, dist=2, prc=55, size=grid_size))
     else:
         fig, axs = plt.subplots(1, figsize=(5, 5))
         axs.pcolormesh(c)
@@ -101,7 +98,8 @@ def tolerant_town(iterations_left, grid_size=20, c=None):
                              float('{0:.2f}'.format(first_group / second_group)))
         return f'\n\tgrid size = {grid_size}x{grid_size}\n' \
                f'\tpopulation = {population}\n' \
-               f'\tratio = {inhabitants_ratio}', iters, toler
+               f'\tratio = {inhabitants_ratio}\n' \
+               f'\ttolerance = {toler[len(toler) - 1]}', iters, toler
 
 
 if __name__ == '__main__':
