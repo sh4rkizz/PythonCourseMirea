@@ -168,17 +168,17 @@ def plotting_common_mistakes(report):
 if __name__ == '__main__':
     group_dict = {'К': 'ИКБО', 'В': 'ИВБО', 'Н': 'ИНБО', 'М': 'ИМБО'}
 
-    with open('../messages.json', encoding='utf8') as f:
+    with open('messages.json', encoding='utf8') as f:
         ms = loads(f.read())
         plotting_groups_with_the_most_messages_sent(ms, group_dict)
         plotting_student_activity_during_a_day(ms)
         plotting_student_activity_during_a_week(ms)
 
-    with open('../failed.json', encoding='utf8') as f:
+    with open('failed.json', encoding='utf8') as f:
         failed = loads(f.read())
         plotting_common_mistakes(failed)
 
-    with open('../table.json', encoding='utf8') as f:
+    with open('table.json', encoding='utf8') as f:
         table = loads(f.read())
         plotting_hard_working_groups(table, group_dict)
         plotting_the_easiest_and_hardest_tasks(table)

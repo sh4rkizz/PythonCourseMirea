@@ -7,7 +7,7 @@ def plot_builder(main_list, counter_list):
     settings = {'name': 'Improvement of citizens happiness',
                 'x_axis': 'Iterations',
                 'y_axis': 'Tolerance',
-                'save_to': 'segregation/graphs/Segregation.png'}
+                'save_to': 'segregation/graph_collector/Segregation.png'}
 
     plt.plot(main_list, counter_list)
     plt.xlabel(settings['x_axis'], fontsize=13)
@@ -79,7 +79,7 @@ def tolerant_town(iterations_left, grid_size=20, c=None):
             c = [[int(random() * 3) for _ in range(grid_size)] for _ in range(grid_size)]
             fig, axs = plt.subplots(1, figsize=(5, 5))
             axs.pcolormesh(c)
-            plt.savefig('segregation/graphs/Start_pos.png', dpi=200, bbox_inches='tight')
+            plt.savefig('segregation/graph_collector/Start_pos.png', dpi=200, bbox_inches='tight')
             plt.show()
         else:
             iters.append(a)
@@ -87,7 +87,7 @@ def tolerant_town(iterations_left, grid_size=20, c=None):
     else:
         fig, axs = plt.subplots(1, figsize=(5, 5))
         axs.pcolormesh(c)
-        plt.savefig('segregation/graphs/End_pos.png', dpi=200, bbox_inches='tight')
+        plt.savefig('segregation/graph_collector/End_pos.png', dpi=200, bbox_inches='tight')
         plt.show()
         inhabitants = tuple(x for z in range(len(c)) for x in c[z])
         first_group = inhabitants.count(1)
