@@ -80,7 +80,7 @@ def analyze_db(db):
                    'x_axis': 'Years',
                    'y_axis': 'Games',
                    'bar_diagram': False,
-                   'save_to': 'Popular_game_dev_years.png'}
+                   'save_to': 'graph_collector/Popular_game_dev_years.png'}
 
     popularity = popular_years(db)
     graph_analysis(gr_settings, popularity.keys(), popularity.values())
@@ -90,14 +90,12 @@ def analyze_db(db):
                    'x_axis': None,
                    'y_axis': None,
                    'bar_diagram': True,
-                   'save_to': 'Popular_game_genres_throughout_time.png'}
+                   'save_to': 'graph_collector/Popular_game_genres_throughout_time.png'}
 
     popularity = popular_genres_throughout_time(db)
-    names = tuple(i for i, _ in popularity)
-    e = tuple(i[0] for _, i in popularity)
-    n = tuple(i[1] for _, i in popularity)
-    z = tuple(i[2] for _, i in popularity)
-    graph_analysis(gr_settings, names, (e, n, z))
+    graph_analysis(gr_settings, tuple(i for i, _ in popularity), (tuple(i[0] for _, i in popularity),
+                                                                  tuple(i[1] for _, i in popularity),
+                                                                  tuple(i[2] for _, i in popularity)))
 
 
 if __name__ == '__main__':
